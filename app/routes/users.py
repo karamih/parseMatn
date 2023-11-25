@@ -9,8 +9,8 @@ router = APIRouter(prefix="/users", tags=["login and signup"])
 
 @router.post('/signup', status_code=status.HTTP_201_CREATED, response_model=schemas.User)
 def signUp(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    user = db.query(models.User).filter(models.User.username == user.username).first()
-    if user:
+    current_user = db.query(models.User).filter(models.User.username == user.username).first()
+    if current_user:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail="User already exist.")
     hashed_password = utils.hash(user.password)
