@@ -1,9 +1,10 @@
+import base64
 import pathlib
 import uuid
 import io
 from PIL import Image
 from fastapi import Depends, status, APIRouter, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import JSONResponse
 from app.image_generator.translation import translation_chain
 from app.oauth2 import get_current_user
 from app import schemas
@@ -22,13 +23,15 @@ def generate(user_input: schemas.Command, current_user: int = Depends(get_curren
         image_bytes = query({
             "inputs": user_command,
         })
+        # print('generation works')
 
+        img_recovered = base64.b64encode(image_bytes)
         image = Image.open(io.BytesIO(image_bytes))
-
         full_path = UPLOAD_DIR / f"{uuid.uuid4()}.jpg"
         image.save(full_path)
-
-        return {"message": "Done"}
+         
+        # print(img_recovered)
+        return img_recovered
 
     except:
         raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
