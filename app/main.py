@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routes import users, imageGen
+from app.routes import users, imageGen, profile, gallery
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -23,3 +23,5 @@ def index():
 
 app.include_router(router=users.router)
 app.include_router(router=imageGen.router)
+app.include_router(router=profile.router)
+app.include_router(router=gallery.router)

@@ -1,3 +1,4 @@
+from typing import List
 from pydantic import BaseModel, EmailStr
 
 
@@ -9,6 +10,9 @@ class UserOut(BaseModel):
 class UserCreate(BaseModel):
     username: str
     email: EmailStr
+    phone_number: str
+    job: str
+    gender: str
     password: str
 
 
@@ -36,3 +40,23 @@ class TokenData(BaseModel):
 
 class Command(BaseModel):
     command: str
+
+
+class UserProfile(BaseModel):
+    username: str
+    gender: str
+    job: str
+    email: EmailStr
+    phone_number: str
+
+    class config:
+        orm_mode = True
+        
+        
+class GalleryContent(BaseModel):
+    image_prompt: str
+    image: str
+    
+    class config:
+        orm_mode = True
+        

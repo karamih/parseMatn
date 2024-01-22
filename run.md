@@ -1,13 +1,16 @@
-run server in debug mode
-```python
-uvicorn app.main:app --reloadd
-```
-
 run server in production mode
-```python
+```bash
 uvicorn app.main:app
 ```  
 
 
+run server in debug mode
+```bash
+uvicorn app.main:app --reload
+```
+
+
 active virtual environment
+```bash
 ./env/Scripts/activate
+```  
